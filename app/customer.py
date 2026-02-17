@@ -23,20 +23,18 @@ class Customer:
         return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
     def choose_shop(self, shops: list, fuel_price: float) -> None:
-        x1, y1 = self.location
         cheapest_shop = None
         min_trip_cost = float("inf")
 
         for shop in shops:
-            x2, y2 = shop.location
-            distance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+            distance = self.get_distance(shop_location=shop.location)
             fuel_needed = self.car.get_fuel_needed(distance)
             cost_road = fuel_needed * fuel_price
             cost_prod = shop.calculate_cost(self.product_cart)
             total_trip_cost = cost_road + cost_prod
             print(f"{self.name}'s trip to the "
                   f"{shop.name} costs "
-                  f"{round(total_trip_cost, 2)}")
+                  f"{total_trip_cost:.2f}")
             if total_trip_cost < min_trip_cost:
                 min_trip_cost = total_trip_cost
                 cheapest_shop = shop
@@ -50,5 +48,5 @@ class Customer:
             cheapest_shop.print_receipt(self.name, self.product_cart)
             print(f"{self.name} rides home")
             self.money -= min_trip_cost
-            print(f"{self.name} now has {round(self.money, 2)} dollars")
+            print(f"{self.name} now has {self.money:.2f} dollars")
             print()

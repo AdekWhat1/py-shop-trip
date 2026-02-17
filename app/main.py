@@ -36,7 +36,3 @@ def shop_trip() -> None:
         )
         print(f"{customer.name} has {customer.money} dollars")
         customer.choose_shop(all_shops, fuel_price)
-
-
-if __name__ == "__main__":
-    shop_trip()

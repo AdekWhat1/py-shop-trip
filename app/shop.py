@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Shop:
     def __init__(
             self,
@@ -16,8 +19,17 @@ class Shop:
             total_cost += price_per_item * quantity
         return total_cost
 
-    def print_receipt(self, customer_name: str, product_cart: dict) -> None:
-        print("Date: 04/01/2021 12:33:41")
+    def print_receipt(
+            self,
+            customer_name: str,
+            product_cart: dict,
+            dt: datetime = None
+    ) -> None:
+        if dt is None:
+            dt = datetime(2021, 1, 4, 12, 33, 41)
+
+        date_str = dt.strftime("%d/%m/%Y %H:%M:%S")
+        print(f"Date: {date_str}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
 
@@ -28,8 +40,8 @@ class Shop:
             item_total = price_per_item * amount
             total_cost += item_total
 
-            print(f"{amount} {product}s for {item_total:g} dollars")
+            print(f"{amount} {product}s for {round(item_total, 2):g} dollars")
 
-        print(f"Total cost is {total_cost:g} dollars")
+        print(f"Total cost is {round(total_cost, 2):g} dollars")
         print("See you again!")
         print()
