@@ -1,11 +1,11 @@
-import json
-import os
-from app.shop import Shop
 from app.customer import Customer
 from app.car import Car
 
 
 def shop_trip() -> None:
+    import json
+    import os
+    from app.shop import Shop
     base_path = os.path.dirname(__file__)
     config_path = os.path.join(base_path, "config.json")
     with open(config_path, "r") as file:

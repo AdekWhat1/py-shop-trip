@@ -29,24 +29,31 @@ class Customer:
         for shop in shops:
             distance = self.get_distance(shop_location=shop.location)
             fuel_needed = self.car.get_fuel_needed(distance)
-            cost_road = fuel_needed * fuel_price
+
+            cost_road = (fuel_needed * fuel_price) * 2
             cost_prod = shop.calculate_cost(self.product_cart)
+
             total_trip_cost = cost_road + cost_prod
-            print(f"{self.name}'s trip to the "
-                  f"{shop.name} costs "
-                  f"{total_trip_cost:.2f}")
+
+            print(f"{self.name}'s trip to the {shop.name} "
+                  f"costs {total_trip_cost:.2f}")
+
             if total_trip_cost < min_trip_cost:
                 min_trip_cost = total_trip_cost
                 cheapest_shop = shop
+
         if cheapest_shop is None or self.money < min_trip_cost:
-            print(f"{self.name} doesn't have enough money"
-                  f" to make a purchase in any shop")
+            print(f"{self.name} doesn't have enough money "
+                  f"to make a purchase in any shop")
         else:
             print(f"{self.name} rides to {cheapest_shop.name}")
-            print()
+
             self.location = cheapest_shop.location
+
             cheapest_shop.print_receipt(self.name, self.product_cart)
+
             print(f"{self.name} rides home")
+
             self.money -= min_trip_cost
             print(f"{self.name} now has {self.money:.2f} dollars")
             print()
